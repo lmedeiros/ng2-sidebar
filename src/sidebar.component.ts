@@ -37,8 +37,8 @@ export const SIDEBAR_POSITION = {
   template: `
     <aside #sidebar
       [@visibleSidebarState]="_visibleSidebarState"
-      (@visibleSidebarState.start)="_animationStarted($event)"
-      (@visibleSidebarState.done)="_animationDone($event)"
+      (@visibleSidebarState.start)="onAnimationStarted.emit($event)"
+      (@visibleSidebarState.done)="onAnimationDone.emit($event)"
       role="complementary"
       [attr.aria-hidden]="!open"
       [attr.aria-label]="ariaLabel"
@@ -148,15 +148,15 @@ export class Sidebar implements AfterContentInit, OnChanges, OnDestroy {
   @Output() onClose: EventEmitter<null> = new EventEmitter<null>();
 
   @Output() onAnimationStarted: EventEmitter<AnimationTransitionEvent> =
-    new EventEmitter<AnimationTransitionEvent>();
+  new EventEmitter<AnimationTransitionEvent>();
   @Output() onAnimationDone: EventEmitter<AnimationTransitionEvent> =
-    new EventEmitter<AnimationTransitionEvent>();
+  new EventEmitter<AnimationTransitionEvent>();
 
   /** @internal */
-  _visibleSidebarState: string;
+  public _visibleSidebarState: string;
 
   /** @internal */
-  _visibleOverlayState: string;
+  public _visibleOverlayState: string;
 
   @ViewChild('sidebar')
   private _elSidebar: ElementRef;
@@ -168,11 +168,11 @@ export class Sidebar implements AfterContentInit, OnChanges, OnDestroy {
   private _onKeyDownAttached: boolean = false;
 
   private _focusableElementsString: string = 'a[href], area[href], input:not([disabled]), select:not([disabled]),' +
-    'textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex], [contenteditable]';
+  'textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex], [contenteditable]';
   private _focusableElements: Array<HTMLElement>;
   private _focusedBeforeOpen: HTMLElement;
 
-  constructor(@Inject(DOCUMENT) private _document /*: HTMLDocument */) {
+  constructor( @Inject(DOCUMENT) private _document /*: HTMLDocument */) {
     this._manualClose = this._manualClose.bind(this);
     this._trapFocus = this._trapFocus.bind(this);
     this._onClickOutside = this._onClickOutside.bind(this);
