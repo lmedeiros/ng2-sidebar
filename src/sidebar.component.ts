@@ -109,8 +109,8 @@ export const SIDEBAR_POSITION = {
   `],
   animations: [
     trigger('visibleSidebarState', [
-      state('expanded', style({ transform: 'none', pointerEvents: 'auto', willChange: 'initial' })),
-      state('expanded--animate', style({ transform: 'none', pointerEvents: 'auto', willChange: 'initial' })),
+      state('expanded', style({ transform: 'none', pointerEvents: 'auto' })),
+      state('expanded--animate', style({ transform: 'none', pointerEvents: 'auto' })),
       state('collapsed--left', style({ transform: 'translateX(-110%)' })),
       state('collapsed--right', style({ transform: 'translateX(110%)' })),
       state('collapsed--top', style({ transform: 'translateY(-110%)' })),
@@ -148,9 +148,9 @@ export class Sidebar implements AfterContentInit, OnChanges, OnDestroy {
   @Output() onClose: EventEmitter<null> = new EventEmitter<null>();
 
   @Output() onAnimationStarted: EventEmitter<AnimationTransitionEvent> =
-  new EventEmitter<AnimationTransitionEvent>();
+    new EventEmitter<AnimationTransitionEvent>();
   @Output() onAnimationDone: EventEmitter<AnimationTransitionEvent> =
-  new EventEmitter<AnimationTransitionEvent>();
+    new EventEmitter<AnimationTransitionEvent>();
 
   /** @internal */
   public _visibleSidebarState: string;
@@ -168,7 +168,7 @@ export class Sidebar implements AfterContentInit, OnChanges, OnDestroy {
   private _onKeyDownAttached: boolean = false;
 
   private _focusableElementsString: string = 'a[href], area[href], input:not([disabled]), select:not([disabled]),' +
-  'textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex], [contenteditable]';
+    'textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex], [contenteditable]';
   private _focusableElements: Array<HTMLElement>;
   private _focusedBeforeOpen: HTMLElement;
 
