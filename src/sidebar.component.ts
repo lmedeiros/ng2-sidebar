@@ -1,6 +1,5 @@
 import {
   AfterContentInit,
-  AnimationTransitionEvent,
   Component,
   ContentChildren,
   ElementRef,
@@ -14,12 +13,16 @@ import {
   ViewChild,
   ViewEncapsulation,
   QueryList,
+} from '@angular/core';
+import {
+  AnimationEvent,
   trigger,
   state,
   style,
   transition,
   animate
-} from '@angular/core';
+} from '@angular/animations';
+
 import { DOCUMENT } from '@angular/platform-browser';
 
 import { CloseSidebar } from './close.directive';
@@ -147,10 +150,10 @@ export class Sidebar implements AfterContentInit, OnChanges, OnDestroy {
   @Output() onOpen: EventEmitter<null> = new EventEmitter<null>();
   @Output() onClose: EventEmitter<null> = new EventEmitter<null>();
 
-  @Output() onAnimationStarted: EventEmitter<AnimationTransitionEvent> =
-    new EventEmitter<AnimationTransitionEvent>();
-  @Output() onAnimationDone: EventEmitter<AnimationTransitionEvent> =
-    new EventEmitter<AnimationTransitionEvent>();
+  @Output() onAnimationStarted: EventEmitter<AnimationEvent> =
+    new EventEmitter<AnimationEvent>();
+  @Output() onAnimationDone: EventEmitter<AnimationEvent> =
+    new EventEmitter<AnimationEvent>();
 
   /** @internal */
   public _visibleSidebarState: string;
@@ -172,7 +175,7 @@ export class Sidebar implements AfterContentInit, OnChanges, OnDestroy {
   private _focusableElements: Array<HTMLElement>;
   private _focusedBeforeOpen: HTMLElement;
 
-  constructor( @Inject(DOCUMENT) private _document /*: HTMLDocument */) {
+  constructor(@Inject(DOCUMENT) private _document /*: HTMLDocument */) {
     this._manualClose = this._manualClose.bind(this);
     this._trapFocus = this._trapFocus.bind(this);
     this._onClickOutside = this._onClickOutside.bind(this);
@@ -221,12 +224,12 @@ export class Sidebar implements AfterContentInit, OnChanges, OnDestroy {
   // ==============================================================================================
 
   /** @internal */
-  _animationStarted(e: AnimationTransitionEvent) {
+  _animationStarted(e: AnimationEvent) {
     this.onAnimationStarted.emit(e);
   }
 
   /** @internal */
-  _animationDone(e: AnimationTransitionEvent) {
+  _animationDone(e: AnimationEvent) {
     this.onAnimationDone.emit(e);
   }
 

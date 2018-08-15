@@ -1,4 +1,4 @@
-import { Component, AnimationTransitionEvent } from '@angular/core';
+import { Component, AnimationEvent } from '@angular/core';
 import { SIDEBAR_POSITION } from 'ng2-sidebar';
 
 @Component({
@@ -118,11 +118,11 @@ export class DemoComponent {
     console.info('Sidebar closed');
   }
 
-  private _onAnimationStarted(e: AnimationTransitionEvent) {
+  private _onAnimationStarted(e: AnimationEvent) {
     console.info('Animation started', e);
   }
 
-  private _onAnimationDone(e: AnimationTransitionEvent) {
+  private _onAnimationDone(e: AnimationEvent) {
     console.info('Animation done', e);
   }
 }
